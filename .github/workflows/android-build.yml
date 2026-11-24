@@ -56,19 +56,22 @@ jobs:
       - name: Install backend deps
         run: npm install --omit=dev
 
-      - name: Report: Fetch build data
+      # --- YAHAN COLON HATA DIYA HAI ---
+      - name: Fetch build data
         run: node scripts/report.js "Project Validation" 5 "Fetching project files"
 
-      - name: Fetch and extract project
+      - name: Extract project
         run: node scripts/fetch-build.js
 
-      - name: Report: Prepare Android project
+      # --- YAHAN BHI COLON HATA DIYA HAI ---
+      - name: Prepare Android project
         run: node scripts/report.js "Android Configuration" 25 "Preparing Android project"
 
-      - name: Prepare Android project
+      - name: Run prepare script
         run: node scripts/prepare-android.js
 
-      - name: Report: Gradle Build
+      # --- YAHAN BHI COLON HATA DIYA HAI ---
+      - name: Gradle Build
         run: node scripts/report.js "Gradle Build" 50 "Running Gradle"
 
       - name: Build APK/AAB
@@ -86,12 +89,13 @@ jobs:
             gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-log.txt
           fi
 
-      - name: Report: Upload artifact
+      # --- YAHAN BHI COLON HATA DIYA HAI ---
+      - name: Upload artifact
         run: node scripts/report.js "APK/AAB Generation" 80 "Uploading artifact to GitHub Release"
 
       - name: Upload release and finalize state
         run: node scripts/upload-release.js
 
-      - name: On failure — report error
+      - name: On failure report error
         if: failure()
         run: node scripts/report.js --fail "Failed" "Workflow step failed"
