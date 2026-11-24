@@ -1,0 +1,4 @@
+scripts/
+.github/
+*.md
+.env*
