@@ -16,7 +16,8 @@ function parseMultipart(req) {
       multiples: true,
       maxFileSize: 4.4 * 1024 * 1024,
       maxTotalFileSize: 4.4 * 1024 * 1024,
-      allowEmptyFiles: true
+      allowEmptyFiles: true,  // Empty files allow karo
+      minFileSize: 0          // Minimum size 0 byte set karo (Yahi asli fix hai)
     });
     form.parse(req, (err, fields, files) => {
       if (err) return reject(err);
@@ -117,4 +118,4 @@ export default async function handler(req, res) {
     console.error('start build failed:', e);
     return error(res, 500, 'Failed to start build: ' + e.message);
   }
-}
+                            }
