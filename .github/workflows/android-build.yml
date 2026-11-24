@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -56,21 +56,18 @@ jobs:
       - name: Install backend deps
         run: npm install --omit=dev
 
-      # --- YAHAN COLON HATA DIYA HAI ---
       - name: Fetch build data
         run: node scripts/report.js "Project Validation" 5 "Fetching project files"
 
       - name: Extract project
         run: node scripts/fetch-build.js
 
-      # --- YAHAN BHI COLON HATA DIYA HAI ---
       - name: Prepare Android project
         run: node scripts/report.js "Android Configuration" 25 "Preparing Android project"
 
       - name: Run prepare script
         run: node scripts/prepare-android.js
 
-      # --- YAHAN BHI COLON HATA DIYA HAI ---
       - name: Gradle Build
         run: node scripts/report.js "Gradle Build" 50 "Running Gradle"
 
@@ -89,7 +86,6 @@ jobs:
             gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle-log.txt
           fi
 
-      # --- YAHAN BHI COLON HATA DIYA HAI ---
       - name: Upload artifact
         run: node scripts/report.js "APK/AAB Generation" 80 "Uploading artifact to GitHub Release"
 
